@@ -17,51 +17,11 @@
 #  useful, but it comes WITHOUT ANY WARRANTY OR LIABILITY.              #
 # ===================================================================== #
 
-#' Start API
+#' Get Folder Locations
 #' 
-#' This function starts the API server.
-#' @param port port number
-#' @details For cron on UNIX (Linux/macOS), use the following command:
-#' 
-#' ```
-#' Rscript -e "certeapi::startup()" &>> api.log &
-#' ```
-#' 
-#' Use `Rscript --vanilla` to *not* load any user settings such as `.Rprofile`. The trailing `&` will make the script run in the background.
-#' @importFrom plumber pr_set_docs pr_run pr
-#' @importFrom rapidoc rapidoc_index
-#' @importFrom certestyle colourpicker
+#' @rdname get_folder
 #' @export
-startup <- function(port = read_secret("api.port")) {
-  
-  port <- as.integer(port)[1L]
-  if (is.na(port) || port == 0) {
-    port <- NULL
-  }
-
-  file_path <- get_api_file()
-  
-  if (file.exists(file_path)) {
-    
-    message()
-    message(Sys.time())
-    message("Starting API from file '", file_path, "'...")
-    message("This is process ID (pid) ", Sys.getpid())
-    
-    loadNamespace("rapidoc")
-    
-    file_path |> 
-      pr() |> 
-      pr_set_docs("rapidoc",
-                  show_header = FALSE,
-                  primary_color = colourpicker("certeblauw"),
-                  bg_color = colourpicker("white"),
-                  text_color = colourpicker("black")) |> 
-      pr_run(port = port, quiet = FALSE)
-    
-  } else {
-    
-    stop("API file not found")
-    
-  }
+get_api_file <- function() {
+  system.file("api.R", package = "certeapi")
 }
+
