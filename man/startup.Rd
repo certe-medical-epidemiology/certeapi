@@ -10,5 +10,13 @@ startup(port = read_secret("api.port"))
 \item{port}{port number}
 }
 \description{
-Start API
+This function starts the API server.
+}
+\details{
+For cron on UNIX (Linux/macOS), use the following command:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{Rscript -e "certeapi::startup()" &>> api.log &
+}\if{html}{\out{</div>}}
+
+Use \code{Rscript --vanilla} to \emph{not} load any user settings such as \code{.Rprofile}. The trailing \code{&} will make the script run in the background.
 }
