@@ -6,14 +6,17 @@ You can read the [manual with explanation about its functions here](https://cert
 
 ## About the 'certedata' universe
 
-<div style="position: relative; height: 532px;">
+<div style="position: relative; height: 410px;">
   <a href="https://certe-medical-epidemiology.github.io/certedata/" target="_blank">
     <img src="https://certe-medical-epidemiology.github.io/certedata/logo.svg" alt="The certedata R package" style="position: absolute; left: 0px; top: 0px; width: 136px; height: 156px;">
   </a>
   <a href="https://certe-medical-epidemiology.github.io/certestyle/" target="_blank">
     <img src="https://certe-medical-epidemiology.github.io/certestyle/logo.svg" alt="The certestyle R package" style="position: absolute; left: 135px; top: 0px; width: 136px; height: 156px;">
   </a>
-  
+  <a href="https://certe-medical-epidemiology.github.io/certeapi/" target="_blank">
+    <img src="https://certe-medical-epidemiology.github.io/certeapi/logo.svg" alt="The certeapi R package" style="position: absolute; left: 270px; top: 0px; width: 136px; height: 156px;">
+  </a>
+
   <a href="https://certe-medical-epidemiology.github.io/certeplot2/" target="_blank">
     <img src="https://certe-medical-epidemiology.github.io/certeplot2/logo.svg" alt="The certeplot2 R package" style="position: absolute; left: 67.5px; top: 122px; width: 136px; height: 156px;">
   </a>
@@ -33,12 +36,8 @@ You can read the [manual with explanation about its functions here](https://cert
   <a href="https://certe-medical-epidemiology.github.io/certegis/" target="_blank">
     <img src="https://certe-medical-epidemiology.github.io/certegis/logo.svg" alt="The certegis R package" style="position: absolute; left: 270px; top: 244px; width: 136px; height: 156px;">
   </a>
-  
   <a href="https://certe-medical-epidemiology.github.io/certetoolbox/" target="_blank">
-    <img src="https://certe-medical-epidemiology.github.io/certetoolbox/logo.svg" alt="The certetoolbox R package" style="position: absolute; left: 67.5px; top: 366px; width: 136px; height: 156px;">
-  </a>
-  <a href="https://certe-medical-epidemiology.github.io/certeapi/" target="_blank">
-    <img src="https://certe-medical-epidemiology.github.io/certeapi/logo.svg" alt="The certeapi R package" style="position: absolute; left: 202.5px; top: 366px; width: 136px; height: 156px;">
+    <img src="https://certe-medical-epidemiology.github.io/certetoolbox/logo.svg" alt="The certetoolbox R package" style="position: absolute; left: 405px; top: 244px; width: 136px; height: 156px;">
   </a>
 </div>
 

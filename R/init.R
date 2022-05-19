@@ -17,29 +17,11 @@
 #  useful, but it comes WITHOUT ANY WARRANTY OR LIABILITY.              #
 # ===================================================================== #
 
-#* @apiTitle certeapi
-#* @apiDescription This is the Certe Medical Epidemiology API for R.
-#* @apiVersion 0.1.0
-
-#* Echo back the input
-#* @param msg The message to echo
-#* @get /echo
-function(msg="") {
-  list(msg = paste0("The message is: '", msg, "'"))
-}
-
-#* Plot a histogram
-#* @serializer png
-#* @get /plot
-function() {
-  rand <- rnorm(100)
-  hist(rand)
-}
-
-#* Return the sum of two numbers
-#* @param a The first number to add
-#* @param b The second number to add
-#* @post /sum
-function(a, b) {
-  as.numeric(a) + as.numeric(b)
+#' Start API
+#' 
+#' @param port port number
+#' @importFrom plumber pr_run pr
+#' @export
+startup <- function(port = read_secret("api.port")) {
+  pr_run(pr("R/plumber.R"), port = port)
 }
