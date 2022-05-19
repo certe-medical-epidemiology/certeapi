@@ -17,25 +17,6 @@
 #  useful, but it comes WITHOUT ANY WARRANTY OR LIABILITY.              #
 # ===================================================================== #
 
-title: "certeapi"
-url: "https://certe-medical-epidemiology.github.io/certeapi"
-
-navbar:
-  title: "certeapi"
-  left:
-    - text: "Home"
-      icon: "fa-home"
-      href: "index.html"
-    - text: "Manual"
-      icon: "fa-book-open"
-      href: "reference/index.html"
-    - text: "Source Code"
-      icon: "fab fa-github"
-      href: "https://github.com/certe-medical-epidemiology/certeapi"
-  right:
-    - text: "Certe Med Epi"
-      icon: "fab fa-github"
-      href: "https://github.com/certe-medical-epidemiology"
-    - text: "Certe Website"
-      icon: "fa-flask"
-      href: "https://certe.nl"
+test_that("certeapi works", {
+  
+})
