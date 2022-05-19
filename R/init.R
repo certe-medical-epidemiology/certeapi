@@ -19,18 +19,35 @@
 
 #' Start API
 #' 
+#' This function starts the API server.
 #' @param port port number
+#' @details For cron on UNIX (Linux/macOS), use the following command:
+#' 
+#' ```
+#' Rscript -e "certeapi::startup()" &>> api.log &
+#' ```
+#' 
+#' Use `Rscript --vanilla` to *not* load any user settings such as `.Rprofile`. The trailing `&` will make the script run in the background.
 #' @importFrom plumber pr_set_docs pr_run pr
 #' @importFrom rapidoc rapidoc_index
 #' @importFrom certestyle colourpicker
 #' @export
 startup <- function(port = read_secret("api.port")) {
   
+  port <- as.integer(port)[1L]
+  if (is.na(port) || port == 0) {
+    port <- NULL
+  }
+
   file_path <- system.file("api.R", package = "certeapi")
   
   if (file.exists(file_path)) {
     
+    message()
+    message(Sys.time())
     message("Starting API from file '", system.file("api.R", package = "certeapi"), "'...")
+    message("This is process ID (pid) ", Sys.getpid())
+    
     loadNamespace("rapidoc")
     
     file_path |> 
