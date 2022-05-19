@@ -17,34 +17,46 @@
 #  useful, but it comes WITHOUT ANY WARRANTY OR LIABILITY.              #
 # ===================================================================== #
 
-#' Start API
-#' 
-#' @param port port number
-#' @importFrom plumber pr_set_docs pr_run pr
-#' @importFrom rapidoc rapidoc_index
-#' @importFrom certestyle colourpicker
-#' @export
-startup <- function(port = read_secret("api.port")) {
-  
-  file_path <- system.file("api.R", package = "certeapi")
-  
-  if (file.exists(file_path)) {
-    
-    message("Starting API from file '", system.file("api.R", package = "certeapi"), "'...")
-    loadNamespace("rapidoc")
-    
-    file_path |> 
-      pr() |> 
-      pr_set_docs("rapidoc",
-                  show_header = FALSE,
-                  primary_color = colourpicker("certeblauw"),
-                  bg_color = colourpicker("white"),
-                  text_color = colourpicker("black")) |> 
-      pr_run(port = port, quiet = FALSE)
-    
-  } else {
-    
-    stop("File not found: '", file_path, "'")
-    
-  }
+#* @apiTitle certeapi
+#* @apiVersion 0.0.1
+#* @apiDescription This is the Certe Medical Epidemiology API for R.
+#* @apiLicense list(name = "GNU GPL v2.0", url = "https://github.com/certe-medical-epidemiology/certeapi/blob/main/LICENSE.md")
+
+
+#* Echo back the input
+#* @param msg The message to echo
+#* @get /echo
+function(msg = "") {
+  list(msg = paste0("The message is: '", msg, "'"))
+}
+
+#* Echo back the input
+#* @param msg The message to echo
+#* @get /echo
+function(msg = "") {
+  list(msg = paste0("The message is: '", msg, "'"))
+}
+
+#* Plot a histogram
+#* @serializer png
+#* @get /plot
+function() {
+  rand <- rnorm(100)
+  hist(rand)
+}
+
+#* Return the mean of two numbers
+#* @param a The first number to add
+#* @param b The second number to add
+#* @post /mean
+function(a, b) {
+  mean(c(as.numeric(a), as.numeric(b)))
+}
+
+#* Test sum 2
+#* @param a getal 1
+#* @param b getal 2
+#* @get /sum
+function(a = 0, b = 0) {
+  as.numeric(a) + as.numeric(b)
 }

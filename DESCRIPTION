@@ -18,7 +18,9 @@ URL: https://certe-medical-epidemiology.github.io/certeapi, https://github.com/c
 Depends: 
   R (>= 4.1.0)
 Imports:
+  certestyle,
   plumber (>= 1.1.0),
+  rapidoc (>= 8.4.0),
   yaml (>= 2.2.0)
 Suggests:
   testthat (>= 2.0.0)
