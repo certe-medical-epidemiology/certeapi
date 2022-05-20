@@ -58,7 +58,7 @@ function(a = 0, b = 0) {
 #* Retrieve an ESBL ETEST prediction and reliability for a vector of MIC values.
 #* @param mo microorganism, a code or a name
 function(mo) {
-  list(mo = mo_name(mo),
+  list(mo = AMR::mo_name(mo),
        value = sample(c(TRUE, FALSE), 1),
        reliability = runif(1, 0.5, 1))
 }

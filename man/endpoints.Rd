@@ -3,9 +3,6 @@
 \name{endpoints}
 \alias{endpoints}
 \title{Overview of API Endpoints}
-\source{
-This page was automatically generated from the actual API R file, currently installed here: \verb{/home/uscloud/certeapi/inst/api.R}.
-}
 \description{
 This page provides an overview of all available API endpoints and their arguments.
 }

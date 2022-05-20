@@ -67,7 +67,6 @@ startup <- function(port = read_secret("api.port")) {
 #' Overview of API Endpoints
 #' 
 #' This page provides an overview of all available API endpoints and their arguments.
-#' @source This page was automatically generated from the actual API R file, currently installed here: ``r get_api_file()``.
 #' @section Overview of endpoints: `r api2rd()`
 #' @rdname endpoints
 #' @name endpoints
