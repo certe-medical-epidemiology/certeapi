@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">certeapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2</span>
       </span>
     </div>
 
@@ -87,8 +87,8 @@
     <div id="details">
     <h2>Details</h2>
     <p>For cron on UNIX (Linux/macOS), use the following command:</p>
-<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div>
-<p>Use <code>Rscript --vanilla</code> to <em>not</em> load any user settings such as <code>.Rprofile</code>. The trailing <code>&amp;</code> will make the script run in the background.</p>
+<p><code>Rscript -e "certeapi::startup()" &amp;&gt;&gt; /path/api.log &amp;</code></p>
+<p>Use <code>Rscript --vanilla -e</code> to <em>not</em> load any user settings such as <code>.Rprofile</code>. The trailing <code>&amp;</code> will make the script run in the background.</p>
     </div>
 
   </div>
