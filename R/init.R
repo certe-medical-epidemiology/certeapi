@@ -23,11 +23,9 @@
 #' @param port port number
 #' @details For cron on UNIX (Linux/macOS), use the following command:
 #' 
-#' ```
-#' Rscript -e "certeapi::startup()" &>> api.log &
-#' ```
+#' `Rscript -e "certeapi::startup()" &>> /path/api.log &`
 #' 
-#' Use `Rscript --vanilla` to *not* load any user settings such as `.Rprofile`. The trailing `&` will make the script run in the background.
+#' Use `Rscript --vanilla -e` to *not* load any user settings such as `.Rprofile`. The trailing `&` will make the script run in the background.
 #' @importFrom plumber pr_set_docs pr_run pr
 #' @importFrom rapidoc rapidoc_index
 #' @importFrom certestyle colourpicker
@@ -46,7 +44,7 @@ startup <- function(port = read_secret("api.port")) {
     message()
     message(Sys.time())
     message("Starting API from file '", file_path, "'...")
-    message("This is process ID (pid) ", Sys.getpid())
+    message("This R session has process ID (pid) ", Sys.getpid())
     
     loadNamespace("rapidoc")
     
@@ -65,3 +63,12 @@ startup <- function(port = read_secret("api.port")) {
     
   }
 }
+
+#' Overview of API Endpoints
+#' 
+#' This page provides an overview of all available API endpoints and their arguments.
+#' @source This page was automatically generated from the actual API R file, currently installed here: ``r get_api_file()``.
+#' @section Overview of endpoints: `r api2rd()`
+#' @rdname endpoints
+#' @name endpoints
+NULL

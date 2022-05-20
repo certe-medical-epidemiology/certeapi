@@ -1,6 +1,6 @@
 Package: certeapi
 Title: A Certe R Package for Providing an Application Programming Interface
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(
   person(given = c("Matthijs", "S."), 
          family = "Berends",
@@ -18,7 +18,9 @@ URL: https://certe-medical-epidemiology.github.io/certeapi, https://github.com/c
 Depends: 
   R (>= 4.1.0)
 Imports:
+  certestats,
   certestyle,
+  AMR (>= 1.8.0),
   plumber (>= 1.1.0),
   rapidoc (>= 8.4.0),
   yaml (>= 2.2.0)

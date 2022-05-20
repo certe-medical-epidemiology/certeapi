@@ -17,48 +17,17 @@
 #  useful, but it comes WITHOUT ANY WARRANTY OR LIABILITY.              #
 # ===================================================================== #
 
-#* @apiTitle certeapi
-#* @apiVersion 0.0.1
-#* @apiDescription This is the Certe Medical Epidemiology API for R.
-#* @apiLicense list(name = "GNU GPL v2.0", url = "https://github.com/certe-medical-epidemiology/certeapi/blob/main/LICENSE.md")
-
-
-#* @get /echo
-#* Echo back the input
-#* @param msg The message to echo
-function(msg = "") {
-  list(msg = paste0("The message is: '", msg, "'"))
-}
-
-#* @get /plot
-#* Plot a histogram
-#* @serializer png
-function() {
-  rand <- rnorm(100)
-  hist(rand)
-}
-
-#* @post /mean
-#* Return the mean of two numbers
-#* @param a The first number to add
-#* @param b The second number to add
-function(a, b) {
-  mean(c(as.numeric(a), as.numeric(b)))
-}
-
-#* @get /sum
-#* Test sum 2
-#* @param a getal 1
-#* @param b getal 2
-function(a = 0, b = 0) {
-  as.numeric(a) + as.numeric(b)
-}
-
-#* @get /esbl_prediction
-#* Retrieve an ESBL ETEST prediction and reliability for a vector of MIC values.
-#* @param mo microorganism, a code or a name
-function(mo) {
-  list(mo = mo_name(mo),
-       value = sample(c(TRUE, FALSE), 1),
-       reliability = runif(1, 0.5, 1))
+api2rd <- function() {
+  lines <- readLines(get_api_file())
+  lines <- lines[lines %like% "^#\\* " & lines %unlike% "@api"]
+  
+  lines <- gsub("#\\* @get (.*)", "\n## `\\1` (method `GET`):", lines)
+  lines <- gsub("#\\* @post (.*)", "\n## `\\1` (method `POST`):", lines)
+  lines <- gsub("#\\* @delete (.*)", "\n## `\\1` (method `DELETE`):", lines)
+  
+  lines <- gsub("#\\* @serializer (.*)", "\n\nSerializer: `\\1`\n\n", lines)
+  
+  lines <- gsub("#\\* @param ([a-zA-Z0-9_.]+)(.*)", "* `\\1` \\2", lines)
+  lines <- gsub("#\\* (.*)", "\n\nDescription: \\1\n\nArguments:\n\n", lines)
+  paste(lines, collapse = "\n")
 }

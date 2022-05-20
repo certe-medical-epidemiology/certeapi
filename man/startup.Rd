@@ -15,8 +15,7 @@ This function starts the API server.
 \details{
 For cron on UNIX (Linux/macOS), use the following command:
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{Rscript -e "certeapi::startup()" &>> api.log &
-}\if{html}{\out{</div>}}
+\verb{Rscript -e "certeapi::startup()" &>> /path/api.log &}
 
-Use \code{Rscript --vanilla} to \emph{not} load any user settings such as \code{.Rprofile}. The trailing \code{&} will make the script run in the background.
+Use \code{Rscript --vanilla -e} to \emph{not} load any user settings such as \code{.Rprofile}. The trailing \code{&} will make the script run in the background.
 }

@@ -18,4 +18,6 @@
 # ===================================================================== #
 
 #' @keywords internal
+#' @importFrom certestats apply_model_to
+#' @importFrom AMR mo_name
 "_PACKAGE"

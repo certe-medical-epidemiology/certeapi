@@ -17,11 +17,26 @@
 #  useful, but it comes WITHOUT ANY WARRANTY OR LIABILITY.              #
 # ===================================================================== #
 
-#' Get Folder Locations
+#' Get File Locations
 #' 
-#' @rdname get_folder
+#' Use [get_model()] to retrieve the prediction model, which should be an RDS file.
+#' @name get
+#' @rdname get
 #' @export
 get_api_file <- function() {
   system.file("api.R", package = "certeapi")
 }
 
+#' @rdname get
+#' @export
+get_model <- function(name, path = read_secret("api.modelpath")) {
+  if (name %unlike% "[.]rds$") {
+    name <- paste0(name, ".rds")
+  }
+  model_path <- paste0(path, "/", name)
+  if (file.exists(model_path)) {
+    return(readRDS(model_path))
+  } else {
+    stop("Model not found: ", model_path)
+  }
+}
