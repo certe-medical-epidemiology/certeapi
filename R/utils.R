@@ -17,6 +17,10 @@
 #  useful, but it comes WITHOUT ANY WARRANTY OR LIABILITY.              #
 # ===================================================================== #
 
+pkg_env <- new.env(hash = FALSE)
+
+`%||%` <- function(x, y) if (is.null(x)) y else x
+
 api2rd <- function() {
   lines <- readLines(get_api_file())
   lines <- lines[lines %like% "^#\\* " & lines %unlike% "@api"]

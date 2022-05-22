@@ -22,43 +22,59 @@
 #* @apiDescription This is the Certe Medical Epidemiology API for R.
 #* @apiLicense list(name = "GNU GPL v2.0", url = "https://github.com/certe-medical-epidemiology/certeapi/blob/main/LICENSE.md")
 
-
-#* @get /echo
-#* Echo back the input
-#* @param msg The message to echo
-function(msg = "") {
-  list(msg = paste0("The message is: '", msg, "'"))
-}
-
-#* @get /plot
-#* Plot a histogram
-#* @serializer png
-function() {
-  rand <- rnorm(100)
-  hist(rand)
-}
-
-#* @post /mean
-#* Return the mean of two numbers
-#* @param a The first number to add
-#* @param b The second number to add
-function(a, b) {
-  mean(c(as.numeric(a), as.numeric(b)))
-}
-
-#* @get /sum
-#* Test sum 2
-#* @param a getal 1
-#* @param b getal 2
-function(a = 0, b = 0) {
-  as.numeric(a) + as.numeric(b)
-}
+# -----------------------------------------------------------------------------
 
 #* @get /esbl_prediction
 #* Retrieve an ESBL ETEST prediction and reliability for a vector of MIC values.
-#* @param mo microorganism, a code or a name
-function(mo) {
-  list(mo = AMR::mo_name(mo),
-       value = sample(c(TRUE, FALSE), 1),
-       reliability = runif(1, 0.5, 1))
+#* @param AMC Amoxicillin/clavulanic acid, can be left blank
+#* @param AMP Ampicillin, can be left blank
+#* @param TZP Piperacillin/tazobactam, can be left blank
+#* @param CXM Cefuroxime, can be left blank
+#* @param FOX Cefoxitin, can be left blank
+#* @param CTX Cefotaxime, can be left blank
+#* @param CAZ Ceftazidime, can be left blank
+#* @param GEN Gentamicin, can be left blank
+#* @param TOB Tobramycin, can be left blank
+#* @param TMP Trimethoprim, can be left blank
+#* @param NIT Nitrofurantoin, can be left blank
+#* @param FOS Fosfomycin, can be left blank
+#* @param CIP Ciprofloxacin, can be left blank
+#* @param IPM Imipenem, can be left blank
+#* @param MEM Meropenem, can be left blank
+#* @param COL Colistin, can be left blank
+function(AMC = NA, AMP = NA, TZP = NA, CXM = NA,
+         FOX = NA, CTX = NA, CAZ = NA, GEN = NA,
+         TOB = NA, TMP = NA, NIT = NA, FOS = NA,
+         CIP = NA, IPM = NA, MEM = NA, COL = NA) {
+  
+  mdl <- get_model("esbl_prediction")
+  to_pred <- data.frame(AMC = as.double(AMR::as.mic(AMC %||% NA_real_)),
+                        AMP = as.double(AMR::as.mic(AMP %||% NA_real_)),
+                        TZP = as.double(AMR::as.mic(TZP %||% NA_real_)),
+                        CXM = as.double(AMR::as.mic(CXM %||% NA_real_)),
+                        FOX = as.double(AMR::as.mic(FOX %||% NA_real_)),
+                        CTX = as.double(AMR::as.mic(CTX %||% NA_real_)),
+                        CAZ = as.double(AMR::as.mic(CAZ %||% NA_real_)),
+                        GEN = as.double(AMR::as.mic(GEN %||% NA_real_)),
+                        TOB = as.double(AMR::as.mic(TOB %||% NA_real_)),
+                        TMP = as.double(AMR::as.mic(TMP %||% NA_real_)),
+                        NIT = as.double(AMR::as.mic(NIT %||% NA_real_)),
+                        FOS = as.double(AMR::as.mic(FOS %||% NA_real_)),
+                        CIP = as.double(AMR::as.mic(CIP %||% NA_real_)),
+                        IPM = as.double(AMR::as.mic(IPM %||% NA_real_)),
+                        MEM = as.double(AMR::as.mic(MEM %||% NA_real_)),
+                        COL = as.double(AMR::as.mic(COL %||% NA_real_)))
+  
+  # remove columns with only NAs
+  to_pred <- to_pred[, vapply(FUN.VALUE = logical(1), to_pred, function(col) !all(is.na(col)))]
+  
+  pkg_env$warn <- NULL
+  tryCatch(pkg_env$outcome <- mdl |> 
+             certestats::apply_model_to(to_pred),
+           warning = function(w) pkg_env$warn <- w$message)
+  
+  list(outcome = pkg_env$outcome$predicted,
+       certainty = pkg_env$outcome$certainty,
+       haswarning = !is.null(pkg_env$warn),
+       warning = as.character(pkg_env$warn))
 }

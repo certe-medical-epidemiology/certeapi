@@ -3,6 +3,7 @@
 export(get_api_file)
 export(get_model)
 export(startup)
+importFrom(AMR,as.mic)
 importFrom(AMR,mo_name)
 importFrom(certestats,apply_model_to)
 importFrom(certestyle,colourpicker)

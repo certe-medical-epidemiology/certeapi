@@ -1,6 +1,6 @@
 Package: certeapi
 Title: A Certe R Package for Providing an Application Programming Interface
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: c(
   person(given = c("Matthijs", "S."), 
          family = "Berends",

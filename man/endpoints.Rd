@@ -4,50 +4,9 @@
 \alias{endpoints}
 \title{Overview of API Endpoints}
 \description{
-This page provides an overview of all available API endpoints and their arguments.
+This page provides an overview of all available API endpoints and their arguments. On the API server, this information is available at \verb{\{host\}/__docs__/}, where \code{{host}} is the API location, such as \code{"localhost"}, an IP address, or DNS name.
 }
 \section{Overview of endpoints}{
-
-\subsection{\verb{/echo} (method \code{GET}):}{
-
-Description: Echo back the input
-
-Arguments:
-\itemize{
-\item \code{msg}  The message to echo
-}
-}
-
-\subsection{\verb{/plot} (method \code{GET}):}{
-
-Description: Plot a histogram
-
-Arguments:
-
-Serializer: \code{png}
-}
-
-\subsection{\verb{/mean} (method \code{POST}):}{
-
-Description: Return the mean of two numbers
-
-Arguments:
-\itemize{
-\item \code{a}  The first number to add
-\item \code{b}  The second number to add
-}
-}
-
-\subsection{\verb{/sum} (method \code{GET}):}{
-
-Description: Test sum 2
-
-Arguments:
-\itemize{
-\item \code{a}  getal 1
-\item \code{b}  getal 2
-}
-}
 
 \subsection{\verb{/esbl_prediction} (method \code{GET}):}{
 
@@ -55,7 +14,22 @@ Description: Retrieve an ESBL ETEST prediction and reliability for a vector of M
 
 Arguments:
 \itemize{
-\item \code{mo}  microorganism, a code or a name
+\item \code{AMC}  Amoxicillin/clavulanic acid, can be left blank
+\item \code{AMP}  Ampicillin, can be left blank
+\item \code{TZP}  Piperacillin/tazobactam, can be left blank
+\item \code{CXM}  Cefuroxime, can be left blank
+\item \code{FOX}  Cefoxitin, can be left blank
+\item \code{CTX}  Cefotaxime, can be left blank
+\item \code{CAZ}  Ceftazidime, can be left blank
+\item \code{GEN}  Gentamicin, can be left blank
+\item \code{TOB}  Tobramycin, can be left blank
+\item \code{TMP}  Trimethoprim, can be left blank
+\item \code{NIT}  Nitrofurantoin, can be left blank
+\item \code{FOS}  Fosfomycin, can be left blank
+\item \code{CIP}  Ciprofloxacin, can be left blank
+\item \code{IPM}  Imipenem, can be left blank
+\item \code{MEM}  Meropenem, can be left blank
+\item \code{COL}  Colistin, can be left blank
 }
 }
 }

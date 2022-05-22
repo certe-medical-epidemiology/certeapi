@@ -66,7 +66,7 @@ startup <- function(port = read_secret("api.port")) {
 
 #' Overview of API Endpoints
 #' 
-#' This page provides an overview of all available API endpoints and their arguments.
+#' This page provides an overview of all available API endpoints and their arguments. On the API server, this information is available at `{host}/__docs__/`, where `{host}` is the API location, such as `"localhost"`, an IP address, or DNS name.
 #' @section Overview of endpoints: `r api2rd()`
 #' @rdname endpoints
 #' @name endpoints
