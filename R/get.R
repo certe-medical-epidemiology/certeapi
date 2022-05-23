@@ -19,7 +19,7 @@
 
 #' Get File Locations
 #' 
-#' Use [get_model()] to retrieve the prediction model, which should be an RDS file.
+#' Use [get_model_path()] to retrieve the prediction model path, which should be an RDS file.
 #' @name get
 #' @rdname get
 #' @export

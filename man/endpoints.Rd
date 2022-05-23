@@ -8,7 +8,7 @@ This page provides an overview of all available API endpoints and their argument
 }
 \section{Overview of endpoints}{
 
-\subsection{\verb{/esbl_prediction} (method \code{GET}):}{
+\subsection{\verb{[GET] /esbl_prediction}:}{
 
 Description: Retrieve an ESBL ETEST prediction and reliability for a vector of MIC values.
 

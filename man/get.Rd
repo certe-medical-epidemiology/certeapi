@@ -19,5 +19,5 @@ read_model(path)
 \item{path}{folder of where the models are stored}
 }
 \description{
-Use \code{\link[=get_model]{get_model()}} to retrieve the prediction model, which should be an RDS file.
+Use \code{\link[=get_model_path]{get_model_path()}} to retrieve the prediction model path, which should be an RDS file.
 }
