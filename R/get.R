@@ -28,15 +28,23 @@ get_api_file <- function() {
 }
 
 #' @rdname get
+#' @param name (file)name of the model
+#' @param path folder of where the models are stored
 #' @export
-get_model <- function(name, path = read_secret("api.modelpath")) {
+get_model_path <- function(name, path = read_secret("api.modelpath")) {
   if (name %unlike% "[.]rds$") {
     name <- paste0(name, ".rds")
   }
   model_path <- paste0(path, "/", name)
   if (file.exists(model_path)) {
-    return(readRDS(model_path))
+    return(model_path)
   } else {
     stop("Model not found: ", model_path)
   }
+}
+
+#' @rdname get
+#' @export
+read_model <- function(path) {
+  readRDS(file = path)
 }

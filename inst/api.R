@@ -17,6 +17,11 @@
 #  useful, but it comes WITHOUT ANY WARRANTY OR LIABILITY.              #
 # ===================================================================== #
 
+
+##      PLEASE NOT THAT THIS FILE WILL NOT BE LOADED WITH THE PACKAGE!     ##
+## This means that every non-base function has be called with the pkg name ##
+
+
 #* @apiTitle certeapi
 #* @apiVersion 0.0.1
 #* @apiDescription This is the Certe Medical Epidemiology API for R.
@@ -47,34 +52,48 @@ function(AMC = NA, AMP = NA, TZP = NA, CXM = NA,
          TOB = NA, TMP = NA, NIT = NA, FOS = NA,
          CIP = NA, IPM = NA, MEM = NA, COL = NA) {
   
-  mdl <- get_model("esbl_prediction")
-  to_pred <- data.frame(AMC = as.double(AMR::as.mic(AMC %||% NA_real_)),
-                        AMP = as.double(AMR::as.mic(AMP %||% NA_real_)),
-                        TZP = as.double(AMR::as.mic(TZP %||% NA_real_)),
-                        CXM = as.double(AMR::as.mic(CXM %||% NA_real_)),
-                        FOX = as.double(AMR::as.mic(FOX %||% NA_real_)),
-                        CTX = as.double(AMR::as.mic(CTX %||% NA_real_)),
-                        CAZ = as.double(AMR::as.mic(CAZ %||% NA_real_)),
-                        GEN = as.double(AMR::as.mic(GEN %||% NA_real_)),
-                        TOB = as.double(AMR::as.mic(TOB %||% NA_real_)),
-                        TMP = as.double(AMR::as.mic(TMP %||% NA_real_)),
-                        NIT = as.double(AMR::as.mic(NIT %||% NA_real_)),
-                        FOS = as.double(AMR::as.mic(FOS %||% NA_real_)),
-                        CIP = as.double(AMR::as.mic(CIP %||% NA_real_)),
-                        IPM = as.double(AMR::as.mic(IPM %||% NA_real_)),
-                        MEM = as.double(AMR::as.mic(MEM %||% NA_real_)),
-                        COL = as.double(AMR::as.mic(COL %||% NA_real_)))
+  mdl_path <- certeapi::get_model_path("esbl_prediction")
+  to_pred <- data.frame(AMC = as.double(AMR::as.mic(AMC)),
+                        AMP = as.double(AMR::as.mic(AMP)),
+                        TZP = as.double(AMR::as.mic(TZP)),
+                        CXM = as.double(AMR::as.mic(CXM)),
+                        FOX = as.double(AMR::as.mic(FOX)),
+                        CTX = as.double(AMR::as.mic(CTX)),
+                        CAZ = as.double(AMR::as.mic(CAZ)),
+                        GEN = as.double(AMR::as.mic(GEN)),
+                        TOB = as.double(AMR::as.mic(TOB)),
+                        TMP = as.double(AMR::as.mic(TMP)),
+                        NIT = as.double(AMR::as.mic(NIT)),
+                        FOS = as.double(AMR::as.mic(FOS)),
+                        CIP = as.double(AMR::as.mic(CIP)),
+                        IPM = as.double(AMR::as.mic(IPM)),
+                        MEM = as.double(AMR::as.mic(MEM)),
+                        COL = as.double(AMR::as.mic(COL)))
   
   # remove columns with only NAs
-  to_pred <- to_pred[, vapply(FUN.VALUE = logical(1), to_pred, function(col) !all(is.na(col)))]
+  to_pred <- to_pred[, vapply(FUN.VALUE = logical(1), to_pred, function(col) !all(is.na(col))), drop = FALSE]
   
-  pkg_env$warn <- NULL
-  tryCatch(pkg_env$outcome <- mdl |> 
-             certestats::apply_model_to(to_pred),
-           warning = function(w) pkg_env$warn <- w$message)
+  lst <- list()
+  lst$warn <- NULL
+  lst$outcome <- NULL
   
-  list(outcome = pkg_env$outcome$predicted,
-       certainty = pkg_env$outcome$certainty,
-       haswarning = !is.null(pkg_env$warn),
-       warning = as.character(pkg_env$warn))
+  # call prediction function but write warning message to list as well
+  withCallingHandlers({
+    lst$outcome <- mdl_path |> 
+      certeapi::read_model() |> 
+      certestats::apply_model_to(to_pred)
+  }, warning = function(w) {
+    lst$warn <<- conditionMessage(w)
+    invokeRestart("muffleWarning")
+  })
+  
+  list(name = "ESBL prediction",
+       outcome = lst$outcome$predicted,
+       certainty = lst$outcome$certainty,
+       haswarning = !is.null(lst$warn),
+       warningtxt = as.character(lst$warn),
+       model = list(modified = format(file.mtime(mdl_path), format = "%Y-%m-%d %H:%M:%S %Z"),
+                    metrics = mdl_path |> 
+                      certeapi::read_model() |> 
+                      certestats::metrics()))
 }

@@ -3,12 +3,20 @@
 \name{get}
 \alias{get}
 \alias{get_api_file}
-\alias{get_model}
+\alias{get_model_path}
+\alias{read_model}
 \title{Get File Locations}
 \usage{
 get_api_file()
 
-get_model(name, path = read_secret("api.modelpath"))
+get_model_path(name, path = read_secret("api.modelpath"))
+
+read_model(path)
+}
+\arguments{
+\item{name}{(file)name of the model}
+
+\item{path}{folder of where the models are stored}
 }
 \description{
 Use \code{\link[=get_model]{get_model()}} to retrieve the prediction model, which should be an RDS file.
