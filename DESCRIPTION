@@ -1,6 +1,6 @@
 Package: certeapi
 Title: A Certe R Package for Providing an Application Programming Interface
-Version: 0.1.5
+Version: 0.1.6
 Authors@R: c(
   person(given = c("Matthijs", "S."), 
          family = "Berends",
@@ -20,7 +20,7 @@ Depends:
 Imports:
   certestats,
   certestyle,
-  AMR (>= 1.8.0),
+  AMR (>= 2.0.0),
   plumber (>= 1.1.0),
   rapidoc (>= 8.4.0),
   yaml (>= 2.2.0)
